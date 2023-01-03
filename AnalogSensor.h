@@ -41,6 +41,7 @@ class AnalogSensor
         void setTimeBetweenReads(uint32_t timeout);
         void setPin(int p);
         uint16_t read(void);
+        uint16_t getRaw(void) { return analogRead(this->_pin); };
         void tick(void);
 };
 
