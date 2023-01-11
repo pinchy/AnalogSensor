@@ -69,11 +69,33 @@ void AnalogSensor::_checkThresholds(uint16_t val)
 {
     if (this->_CallBackOnLowerThreshold != nullptr)
     {
-        if (val < this->_lowerThreshold) this->_CallBackOnLowerThreshold();
+        if (val < this->_lowerThreshold)
+        {
+            if ((this->_lowerThresholdCallBackFired == false))
+            {
+                this->_CallBackOnLowerThreshold();
+                this->_lowerThresholdCallBackFired = true;
+            }
+        }
+        else
+        {
+            this->_lowerThresholdCallBackFired = false;
+        }
     }
 
     if (this->_CallBackOnUpperThreshold != nullptr)
     {
-        if (val > this->_upperThreshold) this->_CallBackOnUpperThreshold();
+        if (val > this->_upperThreshold)
+        {
+            if ((this->_upperThresholdCallBackFired == false))
+            {
+                this->_CallBackOnUpperThreshold();
+                this->_upperThresholdCallBackFired = true;
+            }
+        }
+        else
+        {
+            this->_upperThresholdCallBackFired = false;
+        }
     }
 }

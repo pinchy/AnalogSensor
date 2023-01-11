@@ -24,6 +24,9 @@ class AnalogSensor
         CallBack_t _CallBackOnUpperThreshold = nullptr;
         CallBack_t _CallBackOnLowerThreshold = nullptr;
 
+        bool _upperThresholdCallBackFired = false;
+        bool _lowerThresholdCallBackFired = false;
+
         void _checkThresholds(uint16_t val);
 
     public:
