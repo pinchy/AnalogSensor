@@ -12,6 +12,7 @@ void AnalogSensor::begin(void)
     ;
 }
 
+
 void AnalogSensor::setUpperThreshold(uint16_t threshold, CallBack_t cb)
 {
     this->_upperThreshold = threshold;
@@ -33,7 +34,7 @@ void AnalogSensor::setPin(int p)
 }
 
 
-uint16_t AnalogSensor::read(void)
+int16_t AnalogSensor::read(void)
 {
     this->_timeOfLastRead = millis();
     this->_raw = analogRead(this->_pin);
@@ -48,6 +49,7 @@ void AnalogSensor::setBounds(uint16_t fromLow, uint16_t fromHigh, uint16_t toLow
     this->_toLow = toLow;
     this->_toHigh = toHigh;
 }
+
 void AnalogSensor::setBounds(uint16_t toLow, uint16_t toHigh)
 {
     this->_toLow = toLow;

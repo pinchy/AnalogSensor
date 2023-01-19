@@ -27,6 +27,12 @@ class AnalogSensor
         bool _upperThresholdCallBackFired = false;
         bool _lowerThresholdCallBackFired = false;
 
+
+        /*
+            Checks if the value is above or below the thresholds.
+            If the value is above the upper threshold and the callback has not been fired, the callback is fired.
+            If the value is below the lower threshold and the callback has not been fired, the callback is fired.
+        */
         void _checkThresholds(uint16_t val);
 
     public:
@@ -38,12 +44,24 @@ class AnalogSensor
         void setUpperThreshold(uint16_t threshold, CallBack_t cb);
         void setLowerThreshold(uint16_t threshold, CallBack_t cb);
 
+        /*
+            Sets the bounds for the sensor.
+            The sensor will map the raw value to the range specified by the bounds.
+            The bounds are inclusive.
+        */
         void setBounds(uint16_t fromLow, uint16_t fromHigh, uint16_t toLow, uint16_t toHigh);
         void setBounds(uint16_t toLow, uint16_t toHigh);
 
         void setTimeBetweenReads(uint32_t timeout);
         void setPin(int p);
-        uint16_t read(void);
+
+        /*
+            Reads the analog value from the sensor and maps it to the range specified by the bounds.
+            Returns the mapped value.
+            Returned value can be negative if the bounds are set to negative values.
+        */
+        int16_t read(void);
+
         uint16_t getRaw(void) { return analogRead(this->_pin); };
         void tick(void);
 };
