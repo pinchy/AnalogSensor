@@ -42,7 +42,9 @@ class AnalogSensor
         void begin(void);
 
         void setUpperThreshold(uint16_t threshold, CallBack_t cb);
+        void setUpperThreshold(uint16_t threshold);
         void setLowerThreshold(uint16_t threshold, CallBack_t cb);
+        void setLowerThreshold(uint16_t threshold);
 
         /*
             Sets the bounds for the sensor.
@@ -61,9 +63,13 @@ class AnalogSensor
             Returned value can be negative if the bounds are set to negative values.
         */
         int16_t read(void);
+        float readFloat(void);
 
         uint16_t getRaw(void) { return analogRead(this->_pin); };
         void tick(void);
 };
+
+float mapFloat(float x, float in_min, float in_max, float out_min, float out_max);
+
 
 #endif
