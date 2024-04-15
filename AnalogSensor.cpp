@@ -35,7 +35,6 @@ void AnalogSensor::setPin(int p)
 
 uint16_t AnalogSensor::read(void)
 {
-    this->_timeOfLastRead = millis();
     this->_raw = analogRead(this->_pin);
     return map(this->_raw, this->_fromLow, this->_fromHigh, this->_toLow, this->_toHigh);
 }
@@ -59,9 +58,15 @@ void AnalogSensor::tick(void)
 {
     if (millis() - this->_timeOfLastRead > this->_timeBetweenReads)
     {
-        uint16_t val = this->read();
-        this->_checkThresholds(val);
+        this->check();
+        this->_timeOfLastRead = millis();
     }
+}
+
+void AnalogSensor::check(void)
+{
+    uint16_t val = this->read();
+    this->_checkThresholds(val);
 }
 
 
@@ -98,4 +103,10 @@ void AnalogSensor::_checkThresholds(uint16_t val)
             this->_upperThresholdCallBackFired = false;
         }
     }
+}
+
+void AnalogSensor::reset(void)
+{
+    this->_lowerThresholdCallBackFired = false;
+    this->_upperThresholdCallBackFired = false;
 }

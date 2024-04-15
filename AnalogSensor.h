@@ -38,13 +38,31 @@ class AnalogSensor
         void setUpperThreshold(uint16_t threshold, CallBack_t cb);
         void setLowerThreshold(uint16_t threshold, CallBack_t cb);
 
+        void setUpperThreshold(uint16_t threshold) { this->_upperThreshold = threshold; }
+        void setLowerThreshold(uint16_t threshold) { this->_lowerThreshold = threshold; };
+
+        uint16_t getUpperThreshold(void) { return this->_upperThreshold; };
+        uint16_t getLowerThreshold(void) { return this->_lowerThreshold; };
+
         void setBounds(uint16_t fromLow, uint16_t fromHigh, uint16_t toLow, uint16_t toHigh);
         void setBounds(uint16_t toLow, uint16_t toHigh);
 
         void setTimeBetweenReads(uint32_t timeout);
         void setPin(int p);
+
+        // reset the callback check, to enable the callbacks to fire again
+        void reset();
+
+        // read the analog pin and return the (mapped) value
         uint16_t read(void);
+
+        // read the analog pin and return the raw pin value
         uint16_t getRaw(void) { return analogRead(this->_pin); };
+
+        // check thresholds and fire callbacks
+        void check(void);
+
+        // automode, check thresholds and fire callbacks every x seconds
         void tick(void);
 };
 
