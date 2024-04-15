@@ -42,10 +42,8 @@ class AnalogSensor
         void begin(void);
 
         void setUpperThreshold(uint16_t threshold, CallBack_t cb);
-        void setUpperThreshold(uint16_t threshold);
-        void setLowerThreshold(uint16_t threshold, CallBack_t cb);
-
         void setUpperThreshold(uint16_t threshold) { this->_upperThreshold = threshold; }
+        void setLowerThreshold(uint16_t threshold, CallBack_t cb);
         void setLowerThreshold(uint16_t threshold) { this->_lowerThreshold = threshold; };
 
         uint16_t getUpperThreshold(void) { return this->_upperThreshold; };
@@ -61,7 +59,10 @@ class AnalogSensor
 
         void setTimeBetweenReads(uint32_t timeout);
         void setPin(int p);
+
         uint16_t read(void);
+        float readFloat(void);
+
         uint16_t getRaw(void) { return analogRead(this->_pin); };
 
         // reset the threshold checks so callbacks fire again
